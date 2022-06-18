@@ -13,10 +13,10 @@ class MyDropdown extends StatefulWidget{
 bool _dropDownShow = false;
 
 class _MyDropdownState extends State<MyDropdown> with TickerProviderStateMixin {
-   //функции контроля за стрелкой Arrow и списком DropDown
+  //функции контроля за стрелкой Arrow и списком DropDown
   late AnimationController _controllerArrow;
   late final AnimationController _controllerDropDown = AnimationController(
-    //за сколько секунд раскроется список
+  //за сколько секунд раскроется список
     duration: const Duration(seconds: 1),
     vsync: this,
   );
@@ -28,7 +28,7 @@ class _MyDropdownState extends State<MyDropdown> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    //функция контроля за стрелкой Arrow и за сколько секунд она повернется
+  //функция контроля за стрелкой Arrow и за сколько секунд она повернется
     _controllerArrow = AnimationController(
         vsync: this,
         duration: const Duration(seconds: 1)

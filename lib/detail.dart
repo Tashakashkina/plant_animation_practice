@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 
+ // страница с большим изображением Hero и статьей
 
 class MyDetailPage extends StatefulWidget {
  late MySuperHero _superHero;
@@ -40,9 +41,9 @@ class _MyDetailPageState extends State<MyDetailPage> {
           ),
           Card(
             elevation: 8,
-            margin: EdgeInsets.all(6),
+            margin: const EdgeInsets.all(6),
             child: Container(
-              padding: EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
               child: Text(superHero.description),
             )
           ),

@@ -29,7 +29,7 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-// класс для карточки растения Монстера, включает фото, имя, описание
+// класс для карточки растения: фото, имя, описание
 class MySuperHero {
   final String img;
   final String title;
@@ -38,45 +38,42 @@ class MySuperHero {
   MySuperHero(this.img, this.title, this.description);
 }
 
-
  class _MyHomePageState extends State<MyHomePage>  with TickerProviderStateMixin  {
 
- 
 
-  //контроллер и анимация для плавного появления картинок
+  //контролль и анимация для постепенного появления изображений после запуска или restart
   late AnimationController _controllerOpacity;
   late Animation<double> _animationOpacity;
 
-  // //контроллер для вращения картинки (вращается постоянно)
-  late AnimationController _controllerRotation = AnimationController(
+  //контроль вращения изображения
+  late final AnimationController _controllerRotation = AnimationController(
     vsync: this,
     duration: const Duration(seconds: 10),
   )
+    //постоянное вращение
     ..repeat();
     
       
   @override
   void initState() {
-     //картинки начинают появляться при старте приложения
+     //плавное появление изображений
     _controllerOpacity = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
     _animationOpacity = Tween(begin: 0.0, end: 1.0).animate(_controllerOpacity);
     _controllerOpacity.forward();
-
     super.initState();
   }
-
+ //закрыть
   @override
   void dispose() {
     _controllerRotation.dispose();
     _controllerOpacity.dispose();
     super.dispose();
-
   }
+  //лист items: фото, название, описание
      List<MySuperHero> items = <MySuperHero>[];
-//добавление фото, имени, описания
   _MyHomePageState() {
     items.add( MySuperHero("assets/images/monstera.jpg", 
     "Monstera",
@@ -84,8 +81,6 @@ class MySuperHero {
     );
   }
    
-
-
   Widget mHero (BuildContext context, int index) {
     //по нажатию выполняется переход на страницу с большой фотографией
     return GestureDetector(
@@ -96,17 +91,17 @@ class MySuperHero {
                 builder: (context) => MyDetailPage(items[index])));
       },
       
-
-    //карточка растения Монстера
+    //карточка растения 
       child: Card(
-          margin: EdgeInsets.all(15),
+          margin: const EdgeInsets.all(15),
           elevation: 4.0,
           child: Container(
-            padding: EdgeInsets.all(1),
+            padding: const EdgeInsets.all(1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Row(
+                  // плавное появление изображения 
                   children: <Widget>[
                      FadeTransition(
                       opacity: _animationOpacity,
@@ -125,39 +120,32 @@ class MySuperHero {
                   ],
                 ),
                 const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                
               ],
             ),
-            
           ), 
-          ),
-          
+          ),     
     );
-    
-  
-  
- 
- 
   }
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
        body: Column(
         children: <Widget>[
+          //1.дропдаун
           const MyDropdown(),
+
+          //2.карточка растения
      Expanded(
             flex: 2,
             child:
             ListView.builder(
               itemCount: items.length,
               itemBuilder: (context, index) => mHero(context, index),
-            ),
-           
-          
-    ),
+            ),),
+
+            //3.анимированная картинка и текст
     Expanded(
       flex:4,
       child: Row(
