@@ -41,22 +41,23 @@ class MySuperHero {
  class _MyHomePageState extends State<MyHomePage>  with TickerProviderStateMixin  {
 
 
-  //контролль и анимация для постепенного появления изображений после запуска или restart
+
   late AnimationController _controllerOpacity;
   late Animation<double> _animationOpacity;
 
-  //контроль вращения изображения
+  //rotation control
+   
   late final AnimationController _controllerRotation = AnimationController(
     vsync: this,
     duration: const Duration(seconds: 10),
   )
-    //постоянное вращение
+    //constant rotation
     ..repeat();
     
       
   @override
   void initState() {
-     //плавное появление изображений
+     //smooth appearance of the image
     _controllerOpacity = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
@@ -65,14 +66,15 @@ class MySuperHero {
     _controllerOpacity.forward();
     super.initState();
   }
- //закрыть
+ //close
   @override
   void dispose() {
     _controllerRotation.dispose();
     _controllerOpacity.dispose();
     super.dispose();
   }
-  //лист items: фото, название, описание
+  //items list with image, name and description
+   
      List<MySuperHero> items = <MySuperHero>[];
   _MyHomePageState() {
     items.add( MySuperHero("assets/images/monstera.jpg", 
@@ -82,7 +84,8 @@ class MySuperHero {
   }
    
   Widget mHero (BuildContext context, int index) {
-    //по нажатию выполняется переход на страницу с большой фотографией
+    //go to large image page
+    
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -91,7 +94,7 @@ class MySuperHero {
                 builder: (context) => MyDetailPage(items[index])));
       },
       
-    //карточка растения 
+    //planr card
       child: Card(
           margin: const EdgeInsets.all(15),
           elevation: 4.0,
@@ -133,10 +136,10 @@ class MySuperHero {
       ),
        body: Column(
         children: <Widget>[
-          //1.дропдаун
+          
           const MyDropdown(),
 
-          //2.карточка растения
+          
      Expanded(
             flex: 2,
             child:
@@ -145,13 +148,14 @@ class MySuperHero {
               itemBuilder: (context, index) => mHero(context, index),
             ),),
 
-            //3.анимированная картинка и текст
+            //animated image and text
     Expanded(
       flex:4,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          //плавное появление и анимация-вращение картинки (венок из листьев)
+          //smooth appearance and animation of the object 
+          
           AnimatedBuilder(
                     animation: _controllerRotation,
                     child: FadeTransition(
