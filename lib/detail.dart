@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 
- // страница с большим изображением Hero и статьей
+ // screen with large Hero image and article
 
 class MyDetailPage extends StatefulWidget {
  late MySuperHero _superHero;
